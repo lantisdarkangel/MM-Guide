@@ -18,9 +18,9 @@ const BossActions = {
 		1171655809: {msg: 'Break Shield'},
 		1171655816: {msg: 'Puddle Away'},
 
-		1171653609: {msg: '01'},
-		1171653610: {msg: '02'},
-		1171653612: {msg: '03'},
+//		1171653609: {msg: '01'},
+//		1171653610: {msg: '02'},
+//		1171653612: {msg: '03'},
 //		1171653709: {msg: '04'},
 //		1171653710: {msg: '05'},
 //		1171653711: {msg: '06'},
@@ -50,15 +50,16 @@ const BossActions = {
 //		1171655827: {msg: '40'},
 //		1171657608: {msg: '41'},
 //		1171657609: {msg: '42'},
-		1207895117: {msg: '43'},
-		1207895118: {msg: '44'},
-		1207895119: {msg: '45'},
-		1214970454: {msg: '46'},
+//		1207895117: {msg: '43'},
+//		1207895118: {msg: '44'},
+//		1207895119: {msg: '45'},
+//		1214970454: {msg: '46'},
 					};
 
 module.exports = function MMGuide(dispatch) {
 
 let boss = null;
+
 dispatch.hook('S_BOSS_GAGE_INFO', 2, (event) => {
 	if (event.huntingZoneId === BossId[0] && event.templateId === BossId[1])
 		{
@@ -69,14 +70,12 @@ dispatch.hook('S_BOSS_GAGE_INFO', 2, (event) => {
 dispatch.hook('S_ACTION_STAGE', 1, (event) => {
 	
 	if(!boss) return;
-	
-if (boss.id - event.source == 0) {
+	if (boss.id - event.source == 0) {
 		if (BossActions[event.skill]) {
 			notify(BossActions[event.skill].msg);
 			}
 		}
 	})
-
 
 	function notify(msg) {
 		dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
@@ -85,6 +84,5 @@ if (boss.id - event.source == 0) {
             unk3: 27, // 27
             message: msg
         })
-	}
-	
+	}	
 }
